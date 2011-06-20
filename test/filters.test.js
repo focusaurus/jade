@@ -117,8 +117,32 @@ module.exports = {
         ].join('\n');
 
         assert.equal(js, render(coffee));
+
+        coffee = [
+            ':coffeescript',
+            '  a = {',
+            '    foo: 1',
+            '  }',
+            '  square = (x) ->',
+            '    x * x'
+        ].join('\n');
+        js = [
+            '<script type="text/javascript">',
+            '(function() {',
+            '  var a, square;',
+            '  a = {',
+            '    foo: 1',
+            '  };',
+            '  square = function(x) {',
+            '    return x * x;',
+            '  };',
+            '}).call(this);',
+            '</script>'
+        ].join('\n');
+
+        assert.equal(js, render(coffee))
     },
-    
+
     'test parse tree': function(assert){
         var str = [
             'conditionals:',
